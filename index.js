@@ -10,6 +10,8 @@ require('./helpers/database/connectDatebase')();
 const app = express();
 const PORT = 5000 || process.env.PORT;
 
+app.use(express.json())
+
 app.use('/api', require('./routes'))
 
 app.use(require('./middlewares/errors/customErrorHandler'))
