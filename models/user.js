@@ -73,7 +73,7 @@ UserSchema.methods.generateJwtFromUser = function() {
 
 UserSchema.pre('save', function(next) {
   if(!this.isModified('password')) {
-    next();
+    next()
   }
 
   bcrypt.genSalt(10, (err, salt) => { 
@@ -81,7 +81,7 @@ UserSchema.pre('save', function(next) {
     bcrypt.hash(this.password, salt, (err, hash) => {
       if(err) next(err)
       this.password = hash
-      next();
+      next()
     })
   })
 
