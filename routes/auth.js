@@ -1,12 +1,23 @@
 const express = require('express')
-const {getAccessToRoute} = require('../middlewares/authorization/auth')
-
+const { getAccessToRoute } = require('../middlewares/authorization/auth')
+const {
+	register,
+	login,
+	getUser,
+	logout,
+	imageUpload
+} = require('../controllers/auth')
+const profileImageUpload = require('../middlewares/libraries/profileImageUpload')
 // /auth
 const router = express.Router()
 
-router.post('/register', require('../controllers/auth').register)
-router.post('/login', require('../controllers/auth').login)
-router.get('/profile', getAccessToRoute, require('../controllers/auth').getUser)
-router.get('/logout', getAccessToRoute, require('../controllers/auth').logout)
-
+router.post('/register', register)
+router.post('/login', login)
+router.get('/profile', getAccessToRoute, getUser)
+router.get('/logout', getAccessToRoute, logout)
+router.post(
+	'/upload',
+	[getAccessToRoute, profileImageUpload.single('profile_image')],
+	imageUpload
+)
 module.exports = router
