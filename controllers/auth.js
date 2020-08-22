@@ -6,7 +6,7 @@ const CustomError = require('../helpers/error/CustomError')
 const { sendJwtToClient } = require('../helpers/authorization/tokenHelpers')
 const {
 	validateUserInput,
-	comparePassword,
+	comparePassword
 } = require('../helpers/authorization/inputHelpers')
 
 const register = asyncErrorWrapper(async (req, res, next) => {
@@ -38,11 +38,11 @@ const logout = asyncErrorWrapper(async (req, res, next) => {
 		.cookie({
 			httpOnly: true,
 			expires: new Date(Date.now()),
-			secure: NODE_ENV === 'development' ? false : true,
+			secure: NODE_ENV === 'development' ? false : true
 		})
 		.json({
 			success: true,
-			message: 'Logout successful',
+			message: 'Logout successful'
 		})
 })
 
@@ -50,14 +50,21 @@ const getUser = (req, res, next) => {
 	res.json({
 		success: true,
 		data: req.user.id,
-		name: req.user.name,
+		name: req.user.name
 	})
 }
 
 const imageUpload = asyncErrorWrapper(async (req, res, next) => {
+	const user = await User.findByIdAndUpdate(
+		req.user.id,
+		{ profile_image: req.savedProfileImage },
+		{ new: true, runValidators: true }
+	)
+
 	res.status(200).json({
 		success: true,
 		message: 'image upload successful',
+		data: user
 	})
 })
 
@@ -66,5 +73,5 @@ module.exports = {
 	getUser,
 	login,
 	logout,
-	imageUpload,
+	imageUpload
 }
