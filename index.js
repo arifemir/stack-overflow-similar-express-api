@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const path = require('path')
 const chalk = require('chalk')
+const morgan = require('morgan')
 
 dotenv.config({
 	path: './config/env/config.env'
@@ -14,6 +15,7 @@ const PORT = 5000 || process.env.PORT
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(morgan('dev'))
 
 app.use('/api', require('./routes'))
 
