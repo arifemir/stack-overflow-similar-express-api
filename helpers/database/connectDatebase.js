@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const chalk = require('chalk')
+const mongoose = require('mongoose');
+const chalk = require('chalk');
 
 const connectDatabase = () => {
 	mongoose
@@ -10,11 +10,11 @@ const connectDatabase = () => {
 			useUnifiedTopology: true
 		})
 		.then(() => {
-			console.log(chalk.green.bold('connect mongodb succsess'))
+			console.log(chalk.green.bold('connect mongodb succsess'));
 		})
-		.catch((err) => {
-			console.log(chalk.red.bold(err))
-		})
-}
+		.catch(err => {
+			console.log(chalk.red.bold(err));
+		});
+};
 
-module.exports = connectDatabase
+module.exports = connectDatabase;
