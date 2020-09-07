@@ -5,7 +5,8 @@ const {
 	login,
 	getUser,
 	logout,
-	imageUpload
+	imageUpload,
+	forgotPassword
 } = require('../controllers/auth')
 const profileImageUpload = require('../middlewares/libraries/profileImageUpload')
 // /auth
@@ -15,9 +16,11 @@ router.post('/register', register)
 router.post('/login', login)
 router.get('/profile', getAccessToRoute, getUser)
 router.get('/logout', getAccessToRoute, logout)
+router.get('/forgotpassword', forgotPassword)
 router.post(
 	'/upload',
 	[getAccessToRoute, profileImageUpload.single('profile_image')],
 	imageUpload
 )
+
 module.exports = router
